@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}View Sessions{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="page-header"><i class="fas fa-clock"></i> Sessions</h1>
+    <div class="table-card">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Course</th>
+                    <th>Start Date</th>
+                    <th>Start Time</th>
+                    <th>End Date</th>
+                    <th>End Time</th>
+                    <th>Spots Available</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in sessions %}
+                <tr>
+                    <td>{{ s[0] }}</td>
+                    <td>{{ course_map.get(s[1], 'Unknown') }}</td>
+                    <td>{{ s[2] }}</td>
+                    <td>{{ s[3] }}</td>
+                    <td>{{ s[4] }}</td>
+                    <td>{{ s[5] }}</td>
+                    <td>
+                        <span class="badge {% if s[6] == 0 %}bg-danger{% elif s[6] < 5 %}bg-warning text-dark{% else %}bg-success{% endif %}">
+                            {{ s[6] }}
+                        </span>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="7" class="text-center text-muted">No sessions found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

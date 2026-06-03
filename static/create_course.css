@@ -1,0 +1,233 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #080710;
+    background-image: url("../static/asd4.jpg");
+}
+.dashboard-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    justify-items: center;
+}
+
+.background{
+    width: 800px;
+    height: 700px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+button {
+    background-color: #ffffff;
+    color: black;
+    font-size: 16px;
+    padding: .5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #45a049;
+}
+.button-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #FFF;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out;
+    margin:5px;
+}
+.button-primary:hover {
+    background-color: #0056b3;
+    border: 1px solid #007BFF;
+}
+
+.button-primary:active {
+    transform: scale(0.95);
+}
+
+.background .shape{
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    border-radius: 50%;
+}
+.title {
+    position:center;
+}
+
+.shape:first-child{
+    background: radial-gradient(
+        rgba(255,255,255,0.3),
+        rgba(26, 90, 241, 0.1)
+    );
+    height: 200px;
+    width: 200px;
+    top: -80px;
+    left: -80px;
+}
+
+.shape:last-child{
+    background: radial-gradient(
+        rgba(255,255,255,0.3),
+        rgba(123, 76, 254, 0.1)
+    );
+    height: 300px;
+    width: 300px;
+    bottom: -100px;
+    right: -100px;
+}
+.header-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+header {
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+header a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid white;
+    margin: 0 0.5rem;
+}
+header a:hover {
+    background-color: white;
+    color: #4CAF50;
+}
+
+form{
+    height: auto;
+    width: auto;
+    background-color: rgba(255, 255, 255, 0.13);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 60px 30px;
+}
+.col-md-6 {
+    margin-bottom: 20px;
+    padding: 3px;
+    }
+form * {
+        font-family: 'Poppins', sans-serif;
+        color: #ffffff;
+        letter-spacing: 0.5px;
+        outline: none;
+        border: none;
+        }
+
+form h1 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+    margin-bottom: 50px;
+    }
+    
+    
+
+label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+input,
+textarea {
+    display: block;
+    height:30px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+textarea {
+    height:5px;
+}
+
+::placeholder {
+    color: #e5e5e5;
+}
+.row {
+    margin-top: -80px;
+}
+
+button {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer {
+    margin-top: 580px;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    background-color: transparent;
+    }
+footer p {
+    color: #FFFFFF;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    }
+.container {
+    color:white;
+    margin-top: 80px;
+}
+#logout-button {
+    color:#000000;
+    margin-left: auto;
+}
+.header-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+.header-left h1,
+.header-left p {
+    color: #ffffff; 
+}
+.dashboard-link {
+    float: left;
+}
+
+.logout-link {
+    float: right;
+}

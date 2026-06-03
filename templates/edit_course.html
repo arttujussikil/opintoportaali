@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}Muokkaa kurssia{% endblock %}
+{% block page_title %}Muokkaa kurssia{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="form-card">
+        <form method="POST">
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label class="form-label">Kurssin nimi</label>
+                    <input type="text" name="course_name" class="form-control"
+                           value="{{ course.title }}" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Kurssikoodi</label>
+                    <input type="text" name="course_code" class="form-control"
+                           value="{{ course.course_code or '' }}" placeholder="esim. OHJ-101">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">ECTS-pisteet</label>
+                    <input type="number" name="ects_credits" class="form-control"
+                           step="0.5" min="0" value="{{ course.ects_credits or 5 }}">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Kategoria</label>
+                    <select name="category" class="form-select">
+                        <option value="">-- Valitse --</option>
+                        {% for cat in ['Ohjelmointi','Web-kehitys','Tietokannat','Matematiikka','Kieli','Liiketoiminta','Muu'] %}
+                        <option {% if course.category == cat %}selected{% endif %}>{{ cat }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Vastuuopettaja</label>
+                    <select name="teacher_id" class="form-select">
+                        <option value="">-- Valitse opettaja --</option>
+                        {% for t in teachers %}
+                        <option value="{{ t.id }}" {% if course.teacher_id == t.id %}selected{% endif %}>
+                            {{ t.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Kuvaus</label>
+                    <textarea name="course_description" class="form-control" rows="3" required>{{ course.description }}</textarea>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Alkamispäivä</label>
+                    <input type="date" name="start_date" class="form-control"
+                           value="{{ course.start_date }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Päättymispäivä</label>
+                    <input type="date" name="end_date" class="form-control"
+                           value="{{ course.end_date }}" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Sijainti / luokka</label>
+                    <input type="text" name="location" class="form-control"
+                           value="{{ course.location }}" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Opettajan nimi (teksti)</label>
+                    <input type="text" name="instructor" class="form-control"
+                           value="{{ course.instructor or '' }}">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Ilmoittautuminen alkaa</label>
+                    <input type="date" name="enrollment_open" class="form-control"
+                           value="{{ course.enrollment_open or '' }}">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Ilmoittautuminen päättyy</label>
+                    <input type="date" name="enrollment_close" class="form-control"
+                           value="{{ course.enrollment_close or '' }}">
+                </div>
+
+                <div class="col-12 pt-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Tallenna muutokset
+                    </button>
+                    <a href="{{ url_for('courses') }}" class="btn btn-secondary ms-2">Peruuta</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

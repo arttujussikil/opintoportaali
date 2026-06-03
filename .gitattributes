@@ -1,0 +1,6 @@
+# Default: normalize line endings to LF in repo, CRLF on Windows checkout
+* text=auto
+
+# Shell scripts must always be LF (Docker / Linux)
+*.sh text eol=lf
+entrypoint.sh text eol=lf

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Lisää opiskelija{% endblock %}
+{% block page_title %}Lisää opiskelija{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="form-card">
+        <form method="POST" action="{{ url_for('add_student') }}">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Koko nimi</label>
+                    <input type="text" name="student_name" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Sähköposti</label>
+                    <input type="email" name="student_email" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Puhelin</label>
+                    <input type="tel" name="student_phone" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Salasana</label>
+                    <input type="password" name="student_password" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Opiskelijaryhmä</label>
+                    <input type="text" name="student_group" class="form-control" placeholder="esim. TT23A">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Aloitusvuosi</label>
+                    <input type="number" name="enrollment_year" class="form-control"
+                           min="2000" max="2099" placeholder="esim. 2024">
+                </div>
+                <div class="col-12 pt-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Lisää opiskelija
+                    </button>
+                    <a href="{{ url_for('students_list') }}" class="btn btn-secondary ms-2">
+                        Opiskelijalista
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

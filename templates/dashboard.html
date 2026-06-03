@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Welcome banner -->
+<div class="welcome-banner">
+    <div>
+        <p class="welcome-sub">{{ _('Good to see you back,') }}</p>
+        <h2 class="welcome-name">{{ user_name }}</h2>
+    </div>
+    <span class="role-badge role-{{ 'admin' if current_user.is_admin else ('teacher' if current_user.is_teacher else 'student') }}">
+        {% if current_user.is_admin %}<i class="fas fa-shield-halved"></i> {{ _('Admin') }}
+        {% elif current_user.is_teacher %}<i class="fas fa-chalkboard-teacher"></i> {{ _('Teacher') }}
+        {% else %}<i class="fas fa-user-graduate"></i> {{ _('Student') }}{% endif %}
+    </span>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+    {% if current_user.is_admin or current_user.is_teacher %}
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(99,102,241,.15);color:#818cf8">
+            <i class="fas fa-book-open"></i>
+        </div>
+        <div>
+            <div class="stat-value">{{ stats.total_courses }}</div>
+            <div class="stat-label">{{ _('Total Courses') }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(34,197,94,.15);color:#4ade80">
+            <i class="fas fa-users"></i>
+        </div>
+        <div>
+            <div class="stat-value">{{ stats.total_students }}</div>
+            <div class="stat-label">{{ _('Total Students') }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(245,158,11,.15);color:#fbbf24">
+            <i class="fas fa-clipboard-check"></i>
+        </div>
+        <div>
+            <div class="stat-value">{{ stats.total_enrollments }}</div>
+            <div class="stat-label">{{ _('Enrollments') }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(6,182,212,.15);color:#22d3ee">
+            <i class="fas fa-calendar-check"></i>
+        </div>
+        <div>
+            <div class="stat-value">{{ stats.open_sessions }}</div>
+            <div class="stat-label">{{ _('Open Sessions') }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(239,68,68,.15);color:#f87171">
+            <i class="fas fa-hourglass-half"></i>
+        </div>
+        <div>
+            <div class="stat-value">{{ stats.total_waiting }}</div>
+            <div class="stat-label">{{ _('Waiting List') }}</div>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(99,102,241,.15);color:#818cf8">
+            <i class="fas fa-bookmark"></i>
+        </div>
+        <div>
+            <div class="stat-value">{{ stats.my_enrollments }}</div>
+            <div class="stat-label">{{ _('My Enrollments') }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(34,197,94,.15);color:#4ade80">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div>
+            <div class="stat-value">{{ stats.earned_ects | int }} op</div>
+            <div class="stat-label">{{ _('Earned ECTS') }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(6,182,212,.15);color:#22d3ee">
+            <i class="fas fa-book-open"></i>
+        </div>
+        <div>
+            <div class="stat-value">{{ stats.total_courses }}</div>
+            <div class="stat-label">{{ _('Courses available') }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon" style="background:rgba(245,158,11,.15);color:#fbbf24">
+            <i class="fas fa-hourglass-half"></i>
+        </div>
+        <div>
+            <div class="stat-value">{{ stats.on_waitlist }}</div>
+            <div class="stat-label">{{ _('Waiting List') }}</div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Quick actions -->
+<p class="section-label">{{ _('Quick Actions') }}</p>
+<div class="actions-grid">
+    <a href="{{ url_for('courses') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
+            <i class="fas fa-book-open"></i>
+        </div>
+        <div class="action-title">{{ _('Courses') }}</div>
+        <div class="action-desc">{{ _('Browse all courses') }}</div>
+    </a>
+
+    {% if current_user.is_admin or current_user.is_teacher %}
+    <a href="{{ url_for('students_list') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="action-title">{{ _('Students') }}</div>
+        <div class="action-desc">{{ _('View student roster') }}</div>
+    </a>
+    <a href="{{ url_for('get_enrollments_page') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#06b6d4,#0284c7)">
+            <i class="fas fa-clipboard-list"></i>
+        </div>
+        <div class="action-title">{{ _('Enrollments') }}</div>
+        <div class="action-desc">{{ _('Course enrollments') }}</div>
+    </a>
+    <a href="{{ url_for('view_sessions_page') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#ec4899,#db2777)">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="action-title">{{ _('Sessions') }}</div>
+        <div class="action-desc">{{ _('All sessions') }}</div>
+    </a>
+    {% endif %}
+
+    {% if current_user.is_admin %}
+    <a href="{{ url_for('create_course_page') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+        <div class="action-title">{{ _('New Course') }}</div>
+        <div class="action-desc">{{ _('Create a course') }}</div>
+    </a>
+    <a href="{{ url_for('create_user_page') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+            <i class="fas fa-user-plus"></i>
+        </div>
+        <div class="action-title">{{ _('New User') }}</div>
+        <div class="action-desc">{{ _('Create a user account') }}</div>
+    </a>
+    <a href="{{ url_for('delete_course_page') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
+            <i class="fas fa-trash-alt"></i>
+        </div>
+        <div class="action-title">{{ _('Delete Course') }}</div>
+        <div class="action-desc">{{ _('Remove a course') }}</div>
+    </a>
+    {% endif %}
+
+    {% if current_user.is_student %}
+    <a href="{{ url_for('my_transcript') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="action-title">{{ _('Transcript') }}</div>
+        <div class="action-desc">{{ _('Grades and credits') }}</div>
+    </a>
+    <a href="{{ url_for('reserve_spot_page') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a)">
+            <i class="fas fa-calendar-check"></i>
+        </div>
+        <div class="action-title">{{ _('Reserve') }}</div>
+        <div class="action-desc">{{ _('Enroll in a course') }}</div>
+    </a>
+    <a href="{{ url_for('cancel_reservation_page') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+            <i class="fas fa-calendar-times"></i>
+        </div>
+        <div class="action-title">{{ _('My Reservations') }}</div>
+        <div class="action-desc">{{ _('Cancel a booking') }}</div>
+    </a>
+    <a href="{{ url_for('view_sessions_page') }}" class="action-card">
+        <div class="action-icon" style="background:linear-gradient(135deg,#06b6d4,#0284c7)">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="action-title">{{ _('Sessions') }}</div>
+        <div class="action-desc">{{ _('Upcoming sessions') }}</div>
+    </a>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <h1>Delete User</h1>
+  <form method="POST" action="{{ url_for('delete_user_page') }}">
+    <div class="form-group">
+      <label for="user_id">User ID</label>
+      <input type="number" name="user_id" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-danger">Delete User</button>
+  </form>
+{% endblock %}

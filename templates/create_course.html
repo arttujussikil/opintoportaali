@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}Luo kurssi{% endblock %}
+{% block page_title %}Luo kurssi{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="form-card">
+        <form method="POST">
+            <div class="row g-3">
+
+                <div class="col-md-6">
+                    <label class="form-label">Kurssin nimi</label>
+                    <input type="text" name="course_name" class="form-control" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Kurssikoodi</label>
+                    <input type="text" name="course_code" class="form-control" placeholder="esim. OHJ-101">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">ECTS-pisteet</label>
+                    <input type="number" name="ects_credits" class="form-control" step="0.5" min="0" value="5">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Kategoria</label>
+                    <select name="category" class="form-select">
+                        <option value="">-- Valitse --</option>
+                        <option>Ohjelmointi</option>
+                        <option>Web-kehitys</option>
+                        <option>Tietokannat</option>
+                        <option>Matematiikka</option>
+                        <option>Kieli</option>
+                        <option>Liiketoiminta</option>
+                        <option>Muu</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Vastuuopettaja</label>
+                    <select name="teacher_id" class="form-select">
+                        <option value="">-- Valitse opettaja --</option>
+                        {% for t in teachers %}
+                        <option value="{{ t.id }}">{{ t.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Kuvaus</label>
+                    <textarea name="course_description" class="form-control" rows="3" required></textarea>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Alkamispäivä</label>
+                    <input type="date" name="start_date" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Päättymispäivä</label>
+                    <input type="date" name="end_date" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Alkamisaika</label>
+                    <input type="time" name="start_time" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Päättymisaika</label>
+                    <input type="time" name="end_time" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Sijainti / luokka</label>
+                    <input type="text" name="location" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Paikkoja</label>
+                    <input type="number" name="spots_available" class="form-control" min="1" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Ilmoittautuminen alkaa</label>
+                    <input type="date" name="enrollment_open" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Ilmoittautuminen päättyy</label>
+                    <input type="date" name="enrollment_close" class="form-control">
+                </div>
+
+                <div class="col-12 pt-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Luo kurssi
+                    </button>
+                    <a href="{{ url_for('courses') }}" class="btn btn-secondary ms-2">Peruuta</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

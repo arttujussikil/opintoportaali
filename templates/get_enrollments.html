@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Enrollments{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="page-header"><i class="fas fa-list"></i> Enrollments</h1>
+
+    <div class="form-card mb-4">
+        <form method="POST">
+            <div class="row align-items-end">
+                <div class="col-md-8 mb-3 mb-md-0">
+                    <label for="course_id" class="form-label">Select Course</label>
+                    <select id="course_id" name="course_id" class="form-select" required>
+                        <option value="">-- Choose a course --</option>
+                        {% for course in courses %}
+                        <option value="{{ course.id }}" {% if selected_course_id == course.id|string %}selected{% endif %}>
+                            {{ course.title }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search"></i> View Enrollments
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% if enrollments %}
+    <div class="table-card">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Enrollment ID</th>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in enrollments %}
+                <tr>
+                    <td>{{ e.id }}</td>
+                    <td>{{ e.student_name }}</td>
+                    <td>{{ e.course_title }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p class="text-muted mt-2">Total: {{ enrollments|length }} enrollment(s)</p>
+    </div>
+    {% elif selected_course_id %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> No enrollments found for this course.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

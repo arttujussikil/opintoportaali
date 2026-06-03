@@ -1,0 +1,225 @@
+# Finnish translations for Opinahjo
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+
+# Navigation
+msgid "General"
+msgstr "Yleinen"
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Courses"
+msgstr "Kurssit"
+
+msgid "Management"
+msgstr "Hallinta"
+
+msgid "Students"
+msgstr "Opiskelijat"
+
+msgid "Enrollments"
+msgstr "Ilmoittautumiset"
+
+msgid "Sessions"
+msgstr "Sessiot"
+
+msgid "New Course"
+msgstr "Uusi kurssi"
+
+msgid "New User"
+msgstr "Uusi käyttäjä"
+
+msgid "Add Student"
+msgstr "Lisää opiskelija"
+
+msgid "Delete Course"
+msgstr "Poista kurssi"
+
+msgid "My Account"
+msgstr "Oma tili"
+
+msgid "Transcript"
+msgstr "Suoritukset"
+
+msgid "Reserve"
+msgstr "Ilmoittaudu"
+
+msgid "My Reservations"
+msgstr "Varaukseni"
+
+msgid "Log out"
+msgstr "Kirjaudu ulos"
+
+msgid "Profile"
+msgstr "Profiili"
+
+# Roles
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Teacher"
+msgstr "Opettaja"
+
+msgid "Student"
+msgstr "Opiskelija"
+
+# Dashboard
+msgid "Good to see you back,"
+msgstr "Tervetuloa takaisin,"
+
+msgid "Quick Actions"
+msgstr "Pikavalinnat"
+
+msgid "Total Courses"
+msgstr "Kursseja"
+
+msgid "Total Students"
+msgstr "Opiskelijoita"
+
+msgid "CSV: Students"
+msgstr "CSV: Opiskelijat"
+
+msgid "CSV: Enrollments"
+msgstr "CSV: Ilmoittautumiset"
+
+msgid "Open Sessions"
+msgstr "Avoimia sessioita"
+
+msgid "Waiting List"
+msgstr "Jonotuslistalla"
+
+msgid "My Enrollments"
+msgstr "Ilmoittautumiseni"
+
+msgid "Earned ECTS"
+msgstr "Opintopisteet"
+
+msgid "Courses available"
+msgstr "Kursseja tarjolla"
+
+msgid "Browse all courses"
+msgstr "Selaa kaikkia kursseja"
+
+msgid "View student roster"
+msgstr "Opiskelijalista"
+
+msgid "Course enrollments"
+msgstr "Kurssin ilmoittautumiset"
+
+msgid "All sessions"
+msgstr "Kaikki sessiot"
+
+msgid "Create a course"
+msgstr "Luo kurssi"
+
+msgid "Create a user account"
+msgstr "Luo käyttäjätili"
+
+msgid "Remove a course"
+msgstr "Poista kurssi"
+
+msgid "Grades and credits"
+msgstr "Arvosanat ja opintopisteet"
+
+msgid "Enroll in a course"
+msgstr "Ilmoittaudu kurssille"
+
+msgid "Cancel a booking"
+msgstr "Peruuta varaus"
+
+msgid "Upcoming sessions"
+msgstr "Tulevat sessiot"
+
+# Profile
+msgid "Edit Profile"
+msgstr "Muokkaa profiilia"
+
+msgid "Full Name"
+msgstr "Koko nimi"
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "Phone"
+msgstr "Puhelin"
+
+msgid "Role"
+msgstr "Rooli"
+
+msgid "Student Group"
+msgstr "Opiskelijaryhmä"
+
+msgid "Change Password"
+msgstr "Vaihda salasana"
+
+msgid "Current Password"
+msgstr "Nykyinen salasana"
+
+msgid "New Password"
+msgstr "Uusi salasana"
+
+msgid "Confirm New Password"
+msgstr "Vahvista uusi salasana"
+
+msgid "Save Changes"
+msgstr "Tallenna muutokset"
+
+msgid "Cancel"
+msgstr "Peruuta"
+
+# Flash messages
+msgid "You are now logged in."
+msgstr "Olet nyt kirjautunut sisään."
+
+msgid "You have been logged out."
+msgstr "Olet kirjautunut ulos."
+
+msgid "Login failed. Check your username and password."
+msgstr "Kirjautuminen epäonnistui. Tarkista käyttäjätunnus ja salasana."
+
+msgid "You do not have permission to access this page."
+msgstr "Sinulla ei ole oikeutta tähän sivuun."
+
+msgid "Profile updated successfully."
+msgstr "Profiili päivitetty onnistuneesti."
+
+msgid "Current password is incorrect."
+msgstr "Nykyinen salasana on väärä."
+
+msgid "Passwords do not match."
+msgstr "Salasanat eivät täsmää."
+
+msgid "Course created successfully."
+msgstr "Kurssi luotu onnistuneesti."
+
+msgid "Course updated successfully."
+msgstr "Kurssi päivitetty onnistuneesti."
+
+msgid "Course deleted."
+msgstr "Kurssi poistettu."
+
+msgid "Spot reserved successfully!"
+msgstr "Paikka varattu onnistuneesti!"
+
+msgid "Reservation cancelled."
+msgstr "Varaus peruutettu."
+
+msgid "Grades saved."
+msgstr "Arvosanat tallennettu."
+
+msgid "Attendance saved."
+msgstr "Läsnäolot tallennettu."
+
+# Errors
+msgid "Page not found."
+msgstr "Sivua ei löydy."
+
+msgid "Back to Dashboard"
+msgstr "Takaisin dashboardille"
+
+msgid "Server error."
+msgstr "Palvelinvirhe."

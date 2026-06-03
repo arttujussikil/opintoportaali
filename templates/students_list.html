@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Opiskelijat{% endblock %}
+{% block page_title %}Opiskelijat{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">{{ students_count }} opiskelijaa</span>
+        <a href="{{ url_for('add_student') }}" class="btn btn-primary btn-sm">
+            <i class="fas fa-user-plus"></i> Lisää opiskelija
+        </a>
+    </div>
+
+    <div class="table-card">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Nimi</th>
+                    <th>Sähköposti</th>
+                    <th>Puhelin</th>
+                    <th>Ryhmä</th>
+                    <th>Aloitusvuosi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td><strong>{{ student.name }}</strong></td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.phone or '—' }}</td>
+                    <td>
+                        {% if student.student_group %}
+                        <span class="badge" style="background:var(--bg-3);color:var(--accent);">
+                            {{ student.student_group }}
+                        </span>
+                        {% else %}—{% endif %}
+                    </td>
+                    <td>{{ student.enrollment_year or '—' }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted py-4">Opiskelijoita ei löydy.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

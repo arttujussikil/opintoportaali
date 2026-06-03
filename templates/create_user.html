@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Luo käyttäjä{% endblock %}
+{% block page_title %}Luo käyttäjä{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="form-card">
+        <form method="POST">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Koko nimi</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Sähköposti</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Puhelin</label>
+                    <input type="tel" name="phone" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Rooli</label>
+                    <select class="form-select" name="role" id="role-select" required>
+                        <option value="">-- Valitse --</option>
+                        <option value="student">Opiskelija</option>
+                        <option value="teacher">Opettaja</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Salasana</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Vahvista salasana</label>
+                    <input type="password" name="confirm_password" class="form-control" required>
+                </div>
+
+                <!-- Student-only fields, shown via JS -->
+                <div class="col-md-6" id="student-group-field" style="display:none">
+                    <label class="form-label">Opiskelijaryhmä</label>
+                    <input type="text" name="student_group" class="form-control" placeholder="esim. TT23A">
+                </div>
+                <div class="col-md-6" id="enrollment-year-field" style="display:none">
+                    <label class="form-label">Aloitusvuosi</label>
+                    <input type="number" name="enrollment_year" class="form-control"
+                           min="2000" max="2099" placeholder="esim. 2024">
+                </div>
+
+                <div class="col-12 pt-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Luo käyttäjä
+                    </button>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary ms-2">Peruuta</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('role-select').addEventListener('change', function () {
+    const isStudent = this.value === 'student';
+    document.getElementById('student-group-field').style.display = isStudent ? '' : 'none';
+    document.getElementById('enrollment-year-field').style.display = isStudent ? '' : 'none';
+});
+</script>
+{% endblock %}

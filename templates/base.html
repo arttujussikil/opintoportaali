@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="{{ session.get('lang', 'fi') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Opinahjo{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<div class="app-layout">
+
+    <!-- ── Sidebar ───────────────────────────────── -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon"><i class="fas fa-graduation-cap"></i></span>
+            <span class="brand-name">Opinahjo</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <span class="nav-label">{{ _('General') }}</span>
+            <a href="{{ url_for('dashboard') }}" class="nav-item {% if request.endpoint == 'dashboard' %}active{% endif %}">
+                <i class="fas fa-house"></i><span>{{ _('Dashboard') }}</span>
+            </a>
+            <a href="{{ url_for('courses') }}" class="nav-item {% if request.endpoint == 'courses' %}active{% endif %}">
+                <i class="fas fa-book-open"></i><span>{{ _('Courses') }}</span>
+            </a>
+
+            {% if current_user.is_authenticated %}
+                {% if current_user.is_admin or current_user.is_teacher %}
+                <span class="nav-label">{{ _('Management') }}</span>
+                <a href="{{ url_for('students_list') }}" class="nav-item {% if request.endpoint == 'students_list' %}active{% endif %}">
+                    <i class="fas fa-users"></i><span>{{ _('Students') }}</span>
+                </a>
+                <a href="{{ url_for('get_enrollments_page') }}" class="nav-item {% if request.endpoint == 'get_enrollments_page' %}active{% endif %}">
+                    <i class="fas fa-clipboard-list"></i><span>{{ _('Enrollments') }}</span>
+                </a>
+                <a href="{{ url_for('view_sessions_page') }}" class="nav-item {% if request.endpoint == 'view_sessions_page' %}active{% endif %}">
+                    <i class="fas fa-calendar-alt"></i><span>{{ _('Sessions') }}</span>
+                </a>
+                {% endif %}
+
+                {% if current_user.is_admin %}
+                <span class="nav-label">{{ _('Admin') }}</span>
+                <a href="{{ url_for('create_course_page') }}" class="nav-item {% if request.endpoint == 'create_course_page' %}active{% endif %}">
+                    <i class="fas fa-plus-circle"></i><span>{{ _('New Course') }}</span>
+                </a>
+                <a href="{{ url_for('create_user_page') }}" class="nav-item {% if request.endpoint == 'create_user_page' %}active{% endif %}">
+                    <i class="fas fa-user-plus"></i><span>{{ _('New User') }}</span>
+                </a>
+                <a href="{{ url_for('add_student') }}" class="nav-item {% if request.endpoint == 'add_student' %}active{% endif %}">
+                    <i class="fas fa-user-graduate"></i><span>{{ _('Add Student') }}</span>
+                </a>
+                <a href="{{ url_for('delete_course_page') }}" class="nav-item {% if request.endpoint == 'delete_course_page' %}active{% endif %}">
+                    <i class="fas fa-trash-alt"></i><span>{{ _('Delete Course') }}</span>
+                </a>
+                <!-- CSV exports -->
+                <a href="{{ url_for('export_students_csv') }}" class="nav-item">
+                    <i class="fas fa-file-csv"></i><span>{{ _('CSV: Students') }}</span>
+                </a>
+                <a href="{{ url_for('export_enrollments_csv') }}" class="nav-item">
+                    <i class="fas fa-file-csv"></i><span>{{ _('CSV: Enrollments') }}</span>
+                </a>
+                {% endif %}
+
+                {% if current_user.is_student %}
+                <span class="nav-label">{{ _('My Account') }}</span>
+                <a href="{{ url_for('my_transcript') }}" class="nav-item {% if request.endpoint == 'my_transcript' %}active{% endif %}">
+                    <i class="fas fa-graduation-cap"></i><span>{{ _('Transcript') }}</span>
+                </a>
+                <a href="{{ url_for('reserve_spot_page') }}" class="nav-item {% if request.endpoint == 'reserve_spot_page' %}active{% endif %}">
+                    <i class="fas fa-calendar-check"></i><span>{{ _('Reserve') }}</span>
+                </a>
+                <a href="{{ url_for('cancel_reservation_page') }}" class="nav-item {% if request.endpoint == 'cancel_reservation_page' %}active{% endif %}">
+                    <i class="fas fa-calendar-times"></i><span>{{ _('My Reservations') }}</span>
+                </a>
+                <a href="{{ url_for('view_sessions_page') }}" class="nav-item {% if request.endpoint == 'view_sessions_page' %}active{% endif %}">
+                    <i class="fas fa-calendar-alt"></i><span>{{ _('Sessions') }}</span>
+                </a>
+                {% endif %}
+            {% endif %}
+        </nav>
+
+        <div class="sidebar-footer">
+            {% if current_user.is_authenticated %}
+            <div class="user-info">
+                <div class="user-avatar">{{ current_user.name[0]|upper }}</div>
+                <div class="user-details">
+                    <div class="user-name">{{ current_user.name }}</div>
+                    <div class="user-role">
+                        {% if current_user.is_admin %}{{ _('Admin') }}
+                        {% elif current_user.is_teacher %}{{ _('Teacher') }}
+                        {% else %}{{ _('Student') }}{% endif %}
+                    </div>
+                </div>
+            </div>
+            <a href="{{ url_for('profile') }}" class="logout-btn" title="{{ _('Profile') }}" style="margin-right:4px">
+                <i class="fas fa-user-pen"></i>
+            </a>
+            <a href="{{ url_for('logout') }}" class="logout-btn" title="{{ _('Log out') }}">
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
+            {% endif %}
+        </div>
+    </aside>
+
+    <!-- ── Main ──────────────────────────────────── -->
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="topbar-left">
+                <h1 class="topbar-title">{% block page_title %}{% endblock %}</h1>
+            </div>
+            <div class="topbar-right">
+                <!-- Language switcher -->
+                <div class="lang-switcher">
+                    <a href="{{ url_for('set_lang', lang='fi') }}"
+                       class="lang-btn {% if session.get('lang','fi') == 'fi' %}active{% endif %}">FI</a>
+                    <a href="{{ url_for('set_lang', lang='en') }}"
+                       class="lang-btn {% if session.get('lang','fi') == 'en' %}active{% endif %}">EN</a>
+                </div>
+                <div class="topbar-clock">
+                    <i class="far fa-clock"></i>
+                    <span id="current-time"></span>
+                    <span class="clock-sep">·</span>
+                    <span id="current-date"></span>
+                </div>
+            </div>
+        </header>
+
+        <div id="flash-messages-container"></div>
+
+        <main class="content-area">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='flash_messages.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const data = {{ get_flashed_messages(with_categories=true)|tojson }};
+        const el = document.createElement("div");
+        el.id = "flashed-messages-data";
+        el.style.display = "none";
+        el.textContent = JSON.stringify(data);
+        document.body.appendChild(el);
+        processFlashMessages();
+
+        const tick = () => {
+            const now = new Date();
+            document.getElementById("current-time").textContent =
+                now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById("current-date").textContent =
+                now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+        };
+        tick();
+        setInterval(tick, 1000);
+    });
+</script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

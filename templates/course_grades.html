@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Arvosanat — {{ course.title }}{% endblock %}
+{% block page_title %}Arvosanat{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="mb-3">
+        <span class="text-muted">{{ course.course_code or '' }} — {{ course.title }}</span>
+    </div>
+
+    {% if enrollments %}
+    <div class="form-card">
+        <form method="POST">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Opiskelija</th>
+                            <th>Sähköposti</th>
+                            <th>Tila</th>
+                            <th>Arvosana</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for e in enrollments %}
+                        <tr>
+                            <td><strong>{{ e.student_name }}</strong></td>
+                            <td class="text-muted">{{ e.student_email }}</td>
+                            <td>
+                                {% if e.status == 'completed' %}
+                                <span class="badge bg-success">Suoritettu</span>
+                                {% elif e.status == 'cancelled' %}
+                                <span class="badge bg-danger">Peruutettu</span>
+                                {% else %}
+                                <span class="badge bg-secondary">Aktiivinen</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <select name="grade_{{ e.enrollment_id }}" class="form-select form-select-sm"
+                                        style="width:120px">
+                                    <option value="">—</option>
+                                    {% for g in ['1','2','3','4','5','HYV','HYL'] %}
+                                    <option {% if e.grade == g %}selected{% endif %}>{{ g }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="pt-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Tallenna arvosanat
+                </button>
+                <a href="{{ url_for('courses') }}" class="btn btn-secondary ms-2">Peruuta</a>
+            </div>
+        </form>
+    </div>
+    {% else %}
+    <div class="form-card text-center text-muted py-4">
+        <i class="fas fa-clipboard fa-2x mb-3 d-block" style="color:var(--muted)"></i>
+        Tällä kurssilla ei ole ilmoittautuneita opiskelijoita.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

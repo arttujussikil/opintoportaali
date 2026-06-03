@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Cancel Reservation{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="page-header"><i class="fas fa-calendar-times"></i> Cancel Reservation</h1>
+
+    {% if enrollments %}
+    <div class="table-card mb-4">
+        <p class="text-muted mb-3">Your current reservations:</p>
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Start Date</th>
+                    <th>Start Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in enrollments %}
+                <tr>
+                    <td>{{ e.course_title }}</td>
+                    <td>{{ e.start_date }}</td>
+                    <td>{{ e.start_time }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('cancel_reservation_page') }}" style="display:inline;">
+                            <input type="hidden" name="enrollment_id" value="{{ e.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Cancel reservation for {{ e.course_title }}?')">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle"></i> You have no active reservations.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
