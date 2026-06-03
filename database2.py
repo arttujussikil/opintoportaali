@@ -65,6 +65,16 @@ INSERT IGNORE INTO users (id, name, email, password, role_id) VALUES
 (2, 'Matti Virtanen', 'matti.virtanen@eduportal.fi', %s, 2)
 """, (generate_password_hash('teacher123'),))
 
+cursor.execute("""
+INSERT IGNORE INTO users (id, name, email, password, role_id) VALUES
+(3, 'Emma Korhonen', 'emma.korhonen@eduportal.fi', %s, 1)
+""", (generate_password_hash('student123'),))
+
+cursor.execute("""
+INSERT IGNORE INTO student (user_id, student_group, enrollment_year) VALUES
+(3, 'TI-2024', 2024)
+""")
+
 # ── Course ───────────────────────────────────────────────────────────
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS course (
