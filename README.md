@@ -1,4 +1,4 @@
-# Opintoportaali
+# EduPortal
 
 A full-featured Learning Management System (LMS) built with Flask and MySQL, modelled on real Finnish school workflows. Supports bilingual UI (Finnish / English), role-based access for admins, teachers and students, and deploys to production with a single `docker compose up`.
 
@@ -10,12 +10,13 @@ A full-featured Learning Management System (LMS) built with Flask and MySQL, mod
 - Browse and enrol in courses with ECTS credit information
 - Automatic waiting list when a course is full — promoted automatically when a spot opens
 - Personal transcript with earned ECTS total and Finnish grade history
-- Reserve / cancel sessions; view upcoming schedule
+- View sessions you're enrolled in
 
 ### For Teachers
 - Dashboard scoped to own courses only
 - Enter grades (1–5, HYV, HYL) per student per course
-- Mark session attendance with a single form submission
+- Mark session attendance with a checkbox form
+- View all students in your courses
 
 ### For Admins
 - Full course management — course code, ECTS credits, category, enrolment window, assigned teacher
@@ -25,11 +26,13 @@ A full-featured Learning Management System (LMS) built with Flask and MySQL, mod
 - System statistics: total courses, students, enrolments, open sessions, waiting list count
 
 ### Platform
+- **Modern split-screen login page** — brand panel on left, clean form on right
 - Bilingual UI — Finnish and English, switchable per session
 - Finnish grading system (1–5, HYV, HYL) and ECTS credits
 - Profile editing and password change for all users
 - Custom 404 / 500 error pages
-- Production-ready — served by Gunicorn behind Docker
+- Production-ready — served by Gunicorn 21 with 2 workers
+- Comprehensive role-based dashboards
 
 ---
 
@@ -43,6 +46,7 @@ A full-featured Learning Management System (LMS) built with Flask and MySQL, mod
 | Auth | Werkzeug password hashing |
 | Production server | Gunicorn 21 (2 workers) |
 | Containerisation | Docker · Docker Compose |
+| Frontend | Bootstrap 5.3, Font Awesome 6.4, Inter font |
 
 ---
 
@@ -54,7 +58,7 @@ A full-featured Learning Management System (LMS) built with Flask and MySQL, mod
 ### 1. Clone and configure
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/opintoportaali.git
+git clone https://github.com/arttujussikil/opintoportaali.git
 cd opintoportaali
 cp .env.example .env
 # Edit .env if you want to change passwords or mail settings
@@ -76,10 +80,38 @@ The database is initialised automatically on first boot.
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin@example.com | admin123 |
-| Teacher | matti.virtanen@eduportal.fi | teacher123 |
+| Admin | `admin@example.com` | `admin123` |
+| Teacher | `matti.virtanen@eduportal.fi` | `teacher123` |
+| Student | `emma.korhonen@eduportal.fi` | `student123` |
 
-To create a student account, log in as admin and use **New User** or **Add Student**.
+---
+
+## Role-Based Access
+
+### Admin Dashboard
+- System-wide statistics (courses, students, enrolments, sessions, waiting list)
+- Manage all courses (create, edit, delete, assign teacher)
+- Create users and assign roles
+- View student roster
+- Access all enrollments and sessions
+- Entry forms: grades and attendance for all courses
+- CSV export: students and enrollments
+
+### Teacher Dashboard
+- Statistics for own courses only (students, enrollments, sessions, waiting list in their courses)
+- View and edit own courses
+- Student roster (who's enrolled in your courses)
+- Access enrollments and sessions for your courses
+- Grade entry form (per student per course)
+- Attendance form (per session)
+
+### Student Dashboard
+- Personal statistics: my enrollments, earned ECTS, available courses, waiting list position
+- Browse available courses and reserve spots
+- Waiting list auto-promotion when a spot opens
+- Personal transcript with grades and completion status
+- View upcoming sessions
+- Cancel reservations
 
 ---
 
@@ -98,18 +130,20 @@ opintoportaali/
 ├── .env.example
 │
 ├── static/
-│   ├── styles.css          # Custom design system (dark theme)
+│   ├── styles.css          # App design (dark theme)
+│   ├── login.css           # Login page (split-screen)
 │   └── flash_messages.js
 │
 ├── templates/
 │   ├── base.html           # Sidebar layout + language switcher
+│   ├── login.html          # Split-screen login
 │   ├── dashboard.html
 │   ├── courses.html
 │   ├── course_grades.html
 │   ├── course_attendance.html
 │   ├── transcript.html
 │   ├── profile.html
-│   └── …
+│   └── … (10+ additional pages)
 │
 └── translations/
     ├── fi/LC_MESSAGES/messages.po   # Finnish
@@ -166,8 +200,9 @@ MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 Built as a practical demonstration of a production-ready web application using a relational database. Covers:
 
 - Relational schema design with live migrations
-- Role-based access control
+- Role-based access control (RBAC)
 - Internationalisation (i18n) with compiled message catalogs
 - Session management and secure password hashing
 - Docker-based deployment with health checks and Gunicorn
 - Finnish educational data model (ECTS, grading scale, student groups)
+- Clean, modern UI/UX design principles
