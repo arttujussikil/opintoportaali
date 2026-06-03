@@ -1,4 +1,4 @@
-# English translations for Opinahjo (identity — msgid is already English)
+# English translations for EduPortal (identity — msgid is already English)
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"

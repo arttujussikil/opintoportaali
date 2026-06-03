@@ -76,8 +76,8 @@ The database is initialised automatically on first boot.
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin@opinahjo.fi | admin123 |
-| Teacher | matti.virtanen@opinahjo.fi | teacher123 |
+| Admin | admin@example.com | admin123 |
+| Teacher | matti.virtanen@eduportal.fi | teacher123 |
 
 To create a student account, log in as admin and use **New User** or **Add Student**.
 

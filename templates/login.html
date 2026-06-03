@@ -3,55 +3,85 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login — Opinahjo</title>
+    <title>Sign in — EduPortal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
 </head>
 <body>
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-    <div style="position:fixed;top:1rem;right:1rem;z-index:9999;width:300px;">
+    <div class="flash-container">
         {% for category, message in messages %}
-        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        <div class="flash flash-{{ category }}">
+            <i class="fas fa-{{ 'circle-check' if category == 'success' else 'circle-exclamation' }}"></i>
             {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         {% endfor %}
     </div>
     {% endif %}
     {% endwith %}
 
-    <form method="POST" action="{{ url_for('login_page') }}">
-        <h3><i class="fas fa-graduation-cap"></i> Opinahjo</h3>
-        <p class="subtitle">Course Management System</p>
+    <div class="login-layout">
 
-        <label for="username">Username</label>
-        <div class="input-group mb-3">
-            <span class="addon"><i class="fa fa-user"></i></span>
-            <input type="text" id="username" name="username" placeholder="Enter username" required>
+        <!-- Left: branding panel -->
+        <div class="brand-panel">
+            <div class="brand-content">
+                <div class="brand-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h1 class="brand-name">EduPortal</h1>
+                <p class="brand-tagline">Learning Management System for modern schools</p>
+
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> Role-based access — admin, teacher, student</li>
+                    <li><i class="fas fa-check-circle"></i> Course management with ECTS credits</li>
+                    <li><i class="fas fa-check-circle"></i> Grades, attendance &amp; transcripts</li>
+                    <li><i class="fas fa-check-circle"></i> Finnish / English bilingual UI</li>
+                    <li><i class="fas fa-check-circle"></i> Automatic waiting list promotion</li>
+                </ul>
+            </div>
+
+            <div class="brand-footer">
+                &copy; 2025 EduPortal
+            </div>
         </div>
 
-        <label for="password">Password</label>
-        <div class="input-group mb-3">
-            <span class="addon"><i class="fa fa-lock"></i></span>
-            <input type="password" id="password" name="password" placeholder="Enter password" required>
+        <!-- Right: form panel -->
+        <div class="form-panel">
+            <div class="form-card">
+                <h2 class="form-title">Welcome back</h2>
+                <p class="form-sub">Sign in to your account</p>
+
+                <form method="POST" action="{{ url_for('login_page') }}">
+                    <div class="field">
+                        <label for="username">Email</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="text" id="username" name="username"
+                                   placeholder="you@example.com" autocomplete="email" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <div class="input-wrap">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" name="password"
+                                   placeholder="••••••••" autocomplete="current-password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-signin">
+                        Sign in <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
         </div>
 
-        <button type="submit">
-            Log In <i class="fas fa-sign-in-alt"></i>
-        </button>
-    </form>
+    </div>
 
-    <footer>
-        <p>&copy; 2024 Opinahjo</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

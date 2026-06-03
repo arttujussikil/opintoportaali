@@ -62,7 +62,7 @@ INSERT IGNORE INTO users (id, name, email, password, role_id) VALUES
 
 cursor.execute("""
 INSERT IGNORE INTO users (id, name, email, password, role_id) VALUES
-(2, 'Matti Virtanen', 'matti.virtanen@opinahjo.fi', %s, 2)
+(2, 'Matti Virtanen', 'matti.virtanen@eduportal.fi', %s, 2)
 """, (generate_password_hash('teacher123'),))
 
 # ── Course ───────────────────────────────────────────────────────────
